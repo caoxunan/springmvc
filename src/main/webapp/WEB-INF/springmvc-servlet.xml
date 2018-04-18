@@ -7,10 +7,18 @@
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!--配置HandlerMapping-->
-    <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
-    <!--配置HandlerAdapter-->
-    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+    <!--配置HandlerMapping,有默认的配置包含我们自己定义的内容，所以可以省略-->
+    <!--<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>-->
+
+    <!--配置HandlerAdapter，有默认的配置包含我们自己定义的内容，所以可以省略-->
+    <!--<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>-->
+
+    <!--
+        开启注解驱动, 因为使用注解的方式配置Controller的话，默认提供的处理器映射器过期了，
+        所以要手动指定HandlerMapping，而开启了注解驱动之后就不用手动指定了
+    -->
+    <mvc:annotation-driven/>
+
     <!--配置试图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!-- 最终路径：prefix + 视图名称 + suffix -->
@@ -19,6 +27,17 @@
     </bean>
 
     <!--配置Handler-->
-    <bean name="/hello.do" class="com.cxn.controller.HelloHandler"/>
+    <!--<bean name="/hello.do" class="com.cxn.controller.HelloHandler"/>-->
+
+    <!-- 配置包扫描，不用一个一个的注入bean了 -->
+    <context:component-scan base-package="com.cxn.controller"/>
+
+    <!-- 定义文件上传解析器 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 设定默认编码 -->
+        <property name="defaultEncoding" value="UTF-8"></property>
+        <!-- 设定文件上传的最大值5MB，5*1024*1024 -->
+        <property name="maxUploadSize" value="5242880"></property>
+    </bean>
 
 </beans>
