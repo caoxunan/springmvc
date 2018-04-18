@@ -40,4 +40,15 @@
         <property name="maxUploadSize" value="5242880"></property>
     </bean>
 
+    <!-- 配置自定义拦截器 -->
+    <mvc:interceptors>
+        <!-- 方式一：指定bean，对所有的controller进行拦截 -->
+        <bean class="com.cxn.interceptor.MyInterceptor"/>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <!-- 指定要拦截的路径，这里可以写固定路径，也可以使用Ant风格统配符，/**代表任意路径 -->
+            <bean class="com.cxn.interceptor.MyInterceptor2"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
 </beans>
