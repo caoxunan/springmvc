@@ -1,2 +1,2 @@
 # springmvc
-SpringMVC学习，from itcast ppt
+SpringMVC整理，from itcast ppt
