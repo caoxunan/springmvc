@@ -50,7 +50,7 @@ public class DownUploadController {
     // 下载文件
     @RequestMapping("/download1")
     public void download1(HttpServletResponse response) throws Exception {
-        String filePath = "file/Docker.xmind";
+        String filePath = "file/SpringMVC.xmind";
         File file = new File(filePath);
         OutputStream out = null;
         try {
@@ -79,9 +79,8 @@ public class DownUploadController {
     @RequestMapping("download2")
     public ResponseEntity<byte[]> download2() throws Exception{
 
-        String filePath = "file/Docker.xmind";
+        String filePath = "file/SpringMVC.xmind";
         File file = new File(filePath);
-
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         headers.setContentDispositionFormData("attachment", file.getName());
